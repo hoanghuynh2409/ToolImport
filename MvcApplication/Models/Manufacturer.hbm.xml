@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                assembly="MvcApplication"
+                namespace="MvcApplication.Models">
+  <class name="Manufacturer">
+    <id name="ManufacturerID">
+      <generator class="identity"/>
+    </id>
+    <property name="ManufacturerGUID"/>
+    <property name="Name"/>
+    <property name="SEName"/>
+    <property name="SEKeywords"/>
+    <property name="SEDescription"/>
+    <property name="SETitle"/>
+    <property name="SENoScript"/>
+    <property name="SEAltText"/>
+    <property name="Address1"/>
+    <property name="Address2"/>
+    <property name="Suite"/>
+    <property name="City"/>
+    <property name="State"/>
+    <property name="ZipCode"/>
+    <property name="Country"/>
+    <property name="Phone"/>
+    <property name="FAX"/>
+    <property name="URL"/>
+    <property name="Email"/>
+    <property name="QuantityDiscountID"/>
+    <property name="SortByLooks"/>
+    <property name="Summary"/>
+    <property name="Description"/>
+    <property name="Notes"/>
+    <property name="RelatedDocuments"/>
+    <property name="XmlPackage"/>
+    <property name="ColWidth"/>
+    <property name="DisplayOrder"/>
+    <property name="ExtensionData"/>
+    <property name="ContentsBGColor"/>
+    <property name="PageBGColor"/>
+    <property name="GraphicsColor"/>
+    <property name="ImageFilenameOverride"/>
+    <property name="Published"/>
+    <property name="Wholesale"/>
+    <property name="ParentManufacturerID"/>
+    <property name="IsImport"/>
+    <property name="Deleted"/>
+    <property name="CreatedOn"/>
+    <property name="PageSize"/>
+    <property name="SkinID"/>
+    <property name="TemplateName"/>
+  </class>
+</hibernate-mapping>

@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                assembly="MvcApplication"
+                namespace="MvcApplication.Models">
+  <class name="Category">
+    <id name="CategoryID">
+      <generator class="identity"/>
+    </id>
+    <property name="CategoryGUID"/>
+    <property name="Name"/>
+    <property name="Summary"/>
+    <property name="Description"/>
+    <property name="SEKeywords"/>
+    <property name="SEDescription"/>
+    <property name="DisplayPrefix"/>
+    <property name="SETitle"/>
+    <property name="SENoScript"/>
+    <property name="SEAltText"/>
+    <property name="ParentCategoryID"/>
+    <property name="ColWidth"/>
+    <property name="SortByLooks"/>
+    <property name="DisplayOrder"/>
+    <property name="RelatedDocuments"/>
+    <property name="XmlPackage"/>
+    <property name="Published"/>
+    <property name="Wholesale"/>
+    <property name="AllowSectionFiltering"/>
+    <property name="AllowManufacturerFiltering"/>
+    <property name="AllowProductTypeFiltering"/>
+    <property name="QuantityDiscountID"/>
+    <property name="ShowInProductBrowser"/>
+    <property name="SEName"/>
+    <property name="ExtensionData"/>
+    <property name="ContentsBGColor"/>
+    <property name="PageBGColor"/>
+    <property name="GraphicsColor"/>
+    <property name="ImageFilenameOverride"/>
+    <property name="IsImport"/>
+    <property name="Deleted"/>
+    <property name="CreatedOn"/>
+    <property name="PageSize"/>
+    <property name="TaxClassID"/>
+    <property name="SkinID"/>
+    <property name="TemplateName"/>
+  </class>
+</hibernate-mapping>
