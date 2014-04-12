@@ -16,9 +16,9 @@ namespace MvcApplication.Controllers
     public class ValuesController : ApiController
     {
         // GET api/values
-        //public IEnumerable<Demos> Get()
+        public IEnumerable<AllRowImport> Get()
         //public string Get()
-        public void Get()
+       // public void Get()
         {
             //var r = new Random();
             //var items = Enumerable.Range(1, 50).Select(o => new AngularJSMVC.Models.Demo
@@ -30,27 +30,28 @@ namespace MvcApplication.Controllers
             //}).ToArray();
             //return items;
 
-            //using (ISession session = NHibertnateSession.OpenSession())
-            //{
-            //    var q = session.CreateCriteria<Demos>().List<Demos>();//.Select(c => new { c.Id, c.Name,c.Age,c.Brith}).ToList();
-            //    return q;
-            //}
+            using (ISession session = NHibertnateSession.OpenSession())
+            {
+                var q = session.CreateCriteria<AllRowImport>().List<AllRowImport>();//.Select(c => new { c.Id, c.Name,c.Age,c.Brith}).ToList();
+                return q;
+            }
 
             //return DB.checkExistProduct("Eline Series OE Replacement Brake Rotors1", "Eline Series");
             //return DB.insertNewProduct("abc", "a aa a ", "xml.package", "ok", "m", "", "PS4F551");
             //return DB.checkExistManufacturer("Eline Series1");
             //return DB.insertManufacturer("Eline Series1123");
             // DB.deleteProductManufurer(168504);
-            DB.insertProductManufurer(168400, 81);
+           // DB.insertProductManufurer(168400, 81);
         }
 
         // GET api/values/5
-        public Demos Get(int id)
+        public IEnumerable<AllRowImport> Get(int id)
         {
             using (ISession session = NHibertnateSession.OpenSession())
             {
-                    var demo = session.Load<Demos>(id);
-                    return demo;        
+                    //var demo = session.Load<AllRowImport>(id);
+                    var q = session.CreateCriteria<AllRowImport>().List<AllRowImport>().Where(a=>a.RowNum==id);
+                    return q;        
             }
         }
 
@@ -61,7 +62,7 @@ namespace MvcApplication.Controllers
         }
 
         // PUT api/values/5
-        public void Put(int id, Demos d)
+        public void Put(int id, AllRowImport d)
         {
             //int i = id;
             //Demos str = d;
@@ -69,8 +70,8 @@ namespace MvcApplication.Controllers
             {
                 using (ITransaction Transaction = session.BeginTransaction())
                 {
-                    var demo = session.Load<Demos>(id);
-                    demo.Name = d.Name;
+                    var demo = session.Load<AllRowImport>(id);
+                    demo.ProductName = d.ProductName;
                     session.SaveOrUpdate(demo);
                     Transaction.Commit();
                 }
@@ -85,7 +86,7 @@ namespace MvcApplication.Controllers
             {
                 using (ITransaction Transaction = session.BeginTransaction())
                 {
-                    var demo = session.Load<Demos>(id);
+                    var demo = session.Load<AllRowImport>(id);
                     session.Delete(demo);
                     Transaction.Commit();
                 }

@@ -57,10 +57,10 @@
                             </div>
                         </div>
                     </td>
-                    <td>{{person.Id}}</td>
+                    <td>{{person.RowNum}}</td>
                     <td>
-                        <span ng-show="person.editMode == null || person.editMode == false">{{person.Name}}</span>
-                        <input ng-model="person.Name" ng-show="person.editMode == true" />
+                        <span ng-show="person.editMode == null || person.editMode == false">{{person.ProductName}}</span>
+                        <input ng-model="person.ProductName" ng-show="person.editMode == true" />
                     </td>
                 </tr>
                 </tbody>
@@ -101,10 +101,10 @@
                     return $http.post(url, person);
                 },
                 deletePerson: function (person) {
-                    return $http.delete(url + person.Id);
+                    return $http.delete(url + person.RowNum);
                 },
                 updatePerson: function (person) {
-                    return $http.put(url + person.Id, person);
+                    return $http.put(url + person.RowNum, person);
                 }
             };
         });
