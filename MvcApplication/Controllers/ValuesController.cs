@@ -18,7 +18,7 @@ namespace MvcApplication.Controllers
         // GET api/values
         //public IEnumerable<Demos> Get()
         //public string Get()
-        public int Get()
+        public void Get()
         {
             //var r = new Random();
             //var items = Enumerable.Range(1, 50).Select(o => new AngularJSMVC.Models.Demo
@@ -35,7 +35,13 @@ namespace MvcApplication.Controllers
             //    var q = session.CreateCriteria<Demos>().List<Demos>();//.Select(c => new { c.Id, c.Name,c.Age,c.Brith}).ToList();
             //    return q;
             //}
-            return DB.checkExistProduct("Eline Series OE Replacement Brake Rotors1", "Eline Series");
+
+            //return DB.checkExistProduct("Eline Series OE Replacement Brake Rotors1", "Eline Series");
+            //return DB.insertNewProduct("abc", "a aa a ", "xml.package", "ok", "m", "", "PS4F551");
+            //return DB.checkExistManufacturer("Eline Series1");
+            //return DB.insertManufacturer("Eline Series1123");
+            // DB.deleteProductManufurer(168504);
+            DB.insertProductManufurer(168400, 81);
         }
 
         // GET api/values/5

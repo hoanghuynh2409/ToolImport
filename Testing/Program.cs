@@ -37,6 +37,7 @@ namespace Testing
         }
         static void Main(string[] args)
         {
+            Console.WriteLine("ToLower".ToLower());
             FileInfo file = new FileInfo("C:\\Users\\hoang_000\\Desktop\\Project MU Upload for Website.xlsx");
             using (ExcelPackage xlPackage = new ExcelPackage(file))
             {               

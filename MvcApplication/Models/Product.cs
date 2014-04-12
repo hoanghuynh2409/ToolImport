@@ -72,11 +72,11 @@ namespace MvcApplication.Models
           public virtual int IsImport { get; set; }
           public virtual int IsSystem { get; set; }
           public virtual int Deleted { get; set; }
-          public virtual DateTime CreatedOn {get;set;}
+          public virtual string CreatedOn {get;set;}
           public virtual int PageSize { get; set; }
           public virtual string WarehouseLocation {get;set;}
-          public virtual DateTime AvailableStartDate {get;set;}
-          public virtual DateTime AvailableStopDate { get; set; }
+          public virtual string AvailableStartDate {get;set;}
+          public virtual string AvailableStopDate { get; set; }
           public virtual int GoogleCheckoutAllowed {get;set;}
           public virtual int SkinID {get;set;}
           public virtual string TemplateName {get;set;}

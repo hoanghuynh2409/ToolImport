@@ -11,18 +11,18 @@ namespace MvcApplication.Models
       public virtual int ManufacturerID { get; set; }
       public virtual Product ProductFor {get;set;}
       public virtual Manufacturer ManufacturerFor {get;set;}
-      public virtual string DisplayOrder {get;set;}
+      public virtual int DisplayOrder {get;set;}
       public virtual string CreatedOn {get;set;}
 
-      public override bool Equals(object obj)
-      {
-          return false;
-      }
+      //public override bool Equals(object obj)
+      //{
+      //    return false;
+      //}
 
-      public override int GetHashCode()
-      {
-          return (ManufacturerID + "|" +
-          ProductID).GetHashCode();
-      }
+      //public override int GetHashCode()
+      //{
+      //    return (ManufacturerID + "|" +
+      //    ProductID).GetHashCode();
+      //}
     }
 }

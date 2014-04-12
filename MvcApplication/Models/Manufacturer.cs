@@ -46,7 +46,7 @@ namespace MvcApplication.Models
       public virtual int ParentManufacturerID {get;set;}
       public virtual int IsImport {get;set;}
       public virtual int Deleted {get;set;}
-      public virtual DateTime CreatedOn {get;set;}
+      public virtual string CreatedOn {get;set;}
       public virtual int PageSize {get;set;}
       public virtual int SkinID {get;set;}
       public virtual string TemplateName {get;set;}

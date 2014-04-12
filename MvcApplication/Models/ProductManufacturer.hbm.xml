@@ -3,11 +3,15 @@
                 assembly="MvcApplication"
                 namespace="MvcApplication.Models">
   <class name="ProductManufacturer">
-    <composite-id>
+    <!--<composite-id>
       <key-property name="ProductID"/>
       <key-property name="ManufacturerID"/>
-    </composite-id>
+    </composite-id>-->
+    <id name="ProductID">
+      <generator class="native"/>
+    </id>
     <property name="DisplayOrder"/>
+    <property name="ManufacturerID"/>
     <property name="CreatedOn"/>
     <many-to-one class="Product" name="ProductFor" column="ProductID" insert="true" not-found="exception" fetch="join" />
     <many-to-one class="Manufacturer" name="ManufacturerFor" column="ManufacturerID" insert="true" not-found="exception" fetch="join" />
