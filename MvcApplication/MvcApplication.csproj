@@ -42,14 +42,15 @@
     <Reference Include="ExcelPackage">
       <HintPath>..\..\ExcelPackage.dll</HintPath>
     </Reference>
+    <Reference Include="FluentNHibernate">
+      <HintPath>..\packages\FluentNHibernate.1.4.0.0\lib\net35\FluentNHibernate.dll</HintPath>
+    </Reference>
     <Reference Include="Iesi.Collections, Version=1.0.1.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>libs\Iesi.Collections.dll</HintPath>
+      <HintPath>..\packages\Iesi.Collections.3.2.0.4000\lib\Net35\Iesi.Collections.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="NHibernate, Version=3.3.1.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>libs\NHibernate.dll</HintPath>
+      <HintPath>..\packages\NHibernate.3.3.3.4001\lib\Net35\NHibernate.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -176,25 +177,35 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ListImportController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AllRowImport.cs" />
+    <Compile Include="Models\AllRowImportMap.cs" />
     <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\CategoryMap.cs" />
     <Compile Include="Models\Compunix_MakeModelYear.cs" />
+    <Compile Include="Models\Compunix_MakeModelYearMap.cs" />
     <Compile Include="Models\Compunix_ProductMMY.cs" />
+    <Compile Include="Models\Compunix_ProductMMYMap.cs" />
     <Compile Include="Models\DB.cs" />
     <Compile Include="Models\Demo.cs" />
     <Compile Include="Models\Demos.cs" />
     <Compile Include="Models\Distributor.cs" />
     <Compile Include="Models\Manufacturer.cs" />
+    <Compile Include="Models\ManufacturerMap.cs" />
     <Compile Include="Models\NHibertnateSession.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ProductCategory.cs" />
+    <Compile Include="Models\ProductCategoryMap.cs" />
     <Compile Include="Models\ProductDistributor.cs" />
     <Compile Include="Models\ProductManufacturer.cs" />
+    <Compile Include="Models\ProductManufacturerMap.cs" />
+    <Compile Include="Models\ProductMap.cs" />
     <Compile Include="Models\ProductVariant.cs" />
+    <Compile Include="Models\ProductVariantMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -278,30 +289,6 @@
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
     <Content Include="libs\Iesi.Collections.dll" />
     <Content Include="libs\NHibernate.dll" />
-    <EmbeddedResource Include="Models\Demos.hbm.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Models\AllRowImport.hbm.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <Content Include="Models\Category.hbm.xml" />
-    <Content Include="Models\Compunix_MakeModelYear.hbm.xml" />
-    <Content Include="Models\Compunix_ProductMMY.hbm.xml" />
-    <Content Include="Models\Distributor.hbm.xml" />
-    <Content Include="Models\hibernate.cfg.xml" />
-    <EmbeddedResource Include="Models\Manufacturer.hbm.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Models\Product.hbm.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <Content Include="Models\ProductCategory.hbm.xml" />
-    <Content Include="Models\ProductDistributor.hbm.xml" />
-    <EmbeddedResource Include="Models\ProductManufacturer.hbm.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <Content Include="Models\ProductVariant.hbm.xml" />
     <Content Include="Scripts\angular-animate.js" />
     <Content Include="Scripts\angular-animate.min.js" />
     <Content Include="Scripts\angular-cookies.js" />
@@ -581,6 +568,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
+    <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />
     <Content Include="Scripts\jquery-1.9.1.min.js" />
     <Content Include="Scripts\jquery-1.9.1.min.map" />
@@ -627,9 +615,11 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Scripts\version.json" />
     <Content Include="Scripts\toastr.min.js.map" />
+    <Content Include="Views\ListImport\index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\Upload\" />
     <Folder Include="FileUpload\" />
   </ItemGroup>
   <ItemGroup>
@@ -649,8 +639,8 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
-          <AutoAssignPort>True</AutoAssignPort>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>False</AutoAssignPort>
           <DevelopmentServerPort>80</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:19190/</IISUrl>

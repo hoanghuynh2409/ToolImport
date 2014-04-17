@@ -7,7 +7,7 @@ namespace MvcApplication.Models
 {
     public class Category
     {
-      public virtual int? CategoryID {get;set;}
+      public virtual int CategoryID {get;set;}
       public virtual Guid CategoryGUID {get;set;}
       public virtual string Name {get;set;}
       public virtual string Summary {get;set;}
@@ -39,7 +39,7 @@ namespace MvcApplication.Models
       public virtual string ImageFilenameOverride {get;set;}
       public virtual int IsImport {get;set;}
       public virtual int Deleted {get;set;}
-      public virtual DateTime CreatedOn {get;set;}
+      public virtual string CreatedOn {get;set;}
       public virtual int PageSize {get;set;}
       public virtual int TaxClassID {get;set;}
       public virtual int SkinID {get;set;}

@@ -7,7 +7,7 @@ namespace MvcApplication.Models
 {
     public class ProductVariant
     {
-      public virtual int? VariantID {get;set;}
+      public virtual int VariantID {get;set;}
       public virtual Guid VariantGUID {get;set;}
       public virtual int IsDefault {get;set;}
       public virtual string Name {get;set;}
@@ -24,7 +24,7 @@ namespace MvcApplication.Models
       public virtual string SKUSuffix {get;set;}
       public virtual string ManufacturerPartNumber {get;set;}
       public virtual float Price {get;set;}
-      public virtual float SalePrice { get; set; }
+      public virtual string SalePrice { get; set; }
       public virtual float Weight { get; set; }
       public virtual float MSRP { get; set; }
       public virtual float Cost { get; set; }
@@ -60,7 +60,7 @@ namespace MvcApplication.Models
       public virtual string ImageFilenameOverride {get;set;}
       public virtual int IsImport { get; set; }
       public virtual int Deleted { get; set; }
-      public virtual DateTime CreatedOn {get;set;}
+      public virtual string CreatedOn {get;set;}
       public virtual int SubscriptionIntervalType { get; set; }
       public virtual int CustomerEntersPrice { get; set; }
       public virtual string CustomerEntersPricePrompt {get;set;}

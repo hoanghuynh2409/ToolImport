@@ -15,44 +15,15 @@ namespace MvcApplication.Controllers
 {
     public class ValuesController : ApiController
     {
-        // GET api/values
         public IEnumerable<AllRowImport> Get()
-        //public string Get()
-       // public void Get()
         {
-            //var r = new Random();
-            //var items = Enumerable.Range(1, 50).Select(o => new AngularJSMVC.Models.Demo
-            //{
-            //    Id = o,
-            //    Brith = new DateTime(2014, r.Next(1, 12), r.Next(1, 28)).ToShortDateString(),
-            //    Age = (int)r.Next(10),
-            //    Name = "abc " + o.ToString()
-            //}).ToArray();
-            //return items;
-
-            using (ISession session = NHibertnateSession.OpenSession())
-            {
-                var q = session.CreateCriteria<AllRowImport>().List<AllRowImport>();//.Select(c => new { c.Id, c.Name,c.Age,c.Brith}).ToList();
-                return q;
-            }
-
-            //return DB.checkExistProduct("Eline Series OE Replacement Brake Rotors1", "Eline Series");
-            //return DB.insertNewProduct("abc", "a aa a ", "xml.package", "ok", "m", "", "PS4F551");
-            //return DB.checkExistManufacturer("Eline Series1");
-            //return DB.insertManufacturer("Eline Series1123");
-            // DB.deleteProductManufurer(168504);
-           // DB.insertProductManufurer(168400, 81);
+            return DB.listAllRowImport();
         }
 
         // GET api/values/5
-        public IEnumerable<AllRowImport> Get(int id)
+        public AllRowImport Get(int id)
         {
-            using (ISession session = NHibertnateSession.OpenSession())
-            {
-                    //var demo = session.Load<AllRowImport>(id);
-                    var q = session.CreateCriteria<AllRowImport>().List<AllRowImport>().Where(a=>a.RowNum==id);
-                    return q;        
-            }
+            return DB.getAItemFromAllRowImport(id);
         }
 
         // POST api/values
@@ -62,36 +33,17 @@ namespace MvcApplication.Controllers
         }
 
         // PUT api/values/5
-        public void Put(int id, AllRowImport d)
+        public void Put(int id, AllRowImport ari)
         {
             //int i = id;
             //Demos str = d;
-            using (ISession session = NHibertnateSession.OpenSession())
-            {
-                using (ITransaction Transaction = session.BeginTransaction())
-                {
-                    var demo = session.Load<AllRowImport>(id);
-                    demo.ProductName = d.ProductName;
-                    session.SaveOrUpdate(demo);
-                    Transaction.Commit();
-                }
-
-            }
+            DB.updateAItemOfAllRowImport(id,ari);
         }
 
         // DELETE api/values/5
         public void DeletePerson(int id)
         {
-            using (ISession session = NHibertnateSession.OpenSession())
-            {
-                using (ITransaction Transaction = session.BeginTransaction())
-                {
-                    var demo = session.Load<AllRowImport>(id);
-                    session.Delete(demo);
-                    Transaction.Commit();
-                }
-
-            }
+            DB.deleteAItemOfAllRowImport(id);
         }
     }
 }

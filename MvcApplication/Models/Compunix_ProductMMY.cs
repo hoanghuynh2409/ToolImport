@@ -10,6 +10,6 @@ namespace MvcApplication.Models
       public virtual int MMYID {get;set;}
       public virtual int ProductID {get;set;}
       public virtual int VariantID {get;set;}
-      public virtual int? PMMYID {get;set;}
+      public virtual int PMMYID {get;set;}
     }
 }

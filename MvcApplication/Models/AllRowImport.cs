@@ -20,7 +20,7 @@ namespace MvcApplication.Models
       public virtual string SETitle {get;set;}
       public virtual string XmlPackage {get;set;}
       public virtual string MiscText {get;set;}
-      public virtual string ExtensionData {get;set;}
+      //public virtual string ExtensionData {get;set;}
       public virtual string VariantName {get;set;}
       public virtual string Make {get;set;}
       public virtual string Model {get;set;}

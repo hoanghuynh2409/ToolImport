@@ -7,7 +7,7 @@ namespace MvcApplication.Models
 {
     public class Product
     {
-          public virtual int? ProductID {get;set;}
+          public virtual int ProductID {get;set;}
           public virtual Guid ProductGUID {get;set;}
           public virtual string Name {get;set;}
           public virtual string Summary {get;set;}
