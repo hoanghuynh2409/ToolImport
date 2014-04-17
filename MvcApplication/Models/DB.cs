@@ -515,10 +515,10 @@ namespace MvcApplication.Models
                                  string make,string model,float year,string mmysubmodel,string sku)
         {
             int pvId = 0;
-            try
-            {
+            //try
+            //{
                 //int productId,string name,string sku,float price,string Description,float weight,float msrp,string mmysubmodel
-                string submodelformat=(mmysubmodel==null)?ReplaceFomat(mmysubmodel):"";
+            string submodelformat = (mmysubmodel == null) ? "" : ReplaceFomat(mmysubmodel);
                 pvId = DB.checkExistProductVariant(productId, submodelformat.Trim(), sku);
                 if (pvId == 0)
                 {
@@ -540,12 +540,12 @@ namespace MvcApplication.Models
                     DB.insertCompunix_ProductMMY(mmyid, productId, pvId);
                 }
                 return pvId;
-            }
-            catch (Exception e)
-            {
-                string er = e.Message;
-            }
-            return pvId;
+            //}
+            //catch (Exception e)
+            //{
+            //    string er = e.Message;
+            //}
+           // return pvId;
         }
 
         public static string ReplaceFomat(String str)
