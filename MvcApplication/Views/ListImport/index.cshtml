@@ -24,7 +24,7 @@
 <body>
     <div ng-controller="IndexCtrl" ng-cloak>
         <div style="width: auto;margin:20px;">
-            <button type="button" class="btn btn-default">Save All</button>
+            <button type="button" class="btn btn-default" ng-click="importdata()">Save All</button>
             <table class="table table-striped table-bordered table-condensed table-hover">
                 <tr>
                     <th style="width: 80px;">
@@ -151,8 +151,10 @@
                 },
                 updatePerson: function (person) {
                     return $http.put(url + person.RowNum, person);
+                },
+                importdata: function () {
+                    return $http.get("api/importdata");
                 }
-
             };
         });
         
@@ -220,6 +222,9 @@
  
             $scope.updatePerson = function (person) {
                 personFactory.updatePerson(person).success(successCallback).error(errorCallback);
+            };
+            $scope.importdata = function (url) {
+                personFactory.importdata(url).success(successCallback).error(errorCallback);
             };
             //paging
             $scope.groupToPages = function () {

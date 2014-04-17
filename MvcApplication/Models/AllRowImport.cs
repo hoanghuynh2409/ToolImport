@@ -46,5 +46,6 @@ namespace MvcApplication.Models
       public virtual string Genre3 {get;set;}
       public virtual string Genre4 {get;set;}
       public virtual string Genre5 {get;set;}
+      public virtual int status {get; set;}
     }
 }

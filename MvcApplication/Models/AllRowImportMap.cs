@@ -49,6 +49,7 @@ namespace MvcApplication.Models
               Map(x=>x.Genre3);
               Map(x=>x.Genre4);
               Map(x=>x.Genre5);
+              Map(x => x.status);
         }
     }
 }

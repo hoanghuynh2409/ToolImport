@@ -28,6 +28,20 @@ namespace MvcApplication.Models
                 return q;
             }
         }
+        public static void updateStatusAllRowImport(int rownum,int status)
+        {
+            using (var session = sessfac.OpenSession())
+            {
+                using (var Transaction = session.BeginTransaction())
+                {
+                    var demo = session.Load<AllRowImport>(rownum);
+                    demo.status = status;
+                    session.SaveOrUpdate(demo);
+                    Transaction.Commit();
+                }
+
+            }
+        }
         //Update 
         public static void updateAItemOfAllRowImport(int id,AllRowImport ari)
         {
@@ -82,7 +96,7 @@ namespace MvcApplication.Models
             }
         }
         //insert new product
-        public static int insertNewProduct(string Name, String Description, string XmlPackage, string SEName, string MiscText, string ExtensionData, string ManufacturerPartNumber)
+        public static int insertNewProduct(string Name, String Description, string XmlPackage, string MiscText, string ManufacturerPartNumber)
         {
             int productID = 0;
             using (var session = sessfac.OpenSession())
@@ -96,9 +110,9 @@ namespace MvcApplication.Models
                     p.Published = 1;
                     p.Deleted = 0;
                     p.XmlPackage = XmlPackage;
-                    p.SEName = SEName;
+                    p.SEName = Name.Replace(" ", "-").ToLower(); ;
                     p.MiscText = MiscText;
-                    p.ExtensionData = ExtensionData;
+                    p.ExtensionData = "";
                     p.ManufacturerPartNumber = ManufacturerPartNumber;
                     p.CreatedOn = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                     p.AvailableStartDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
@@ -166,7 +180,7 @@ namespace MvcApplication.Models
                 using (ITransaction Transaction = session.BeginTransaction())
                 {
                     var pm = session.QueryOver<ProductManufacturer>().Where(c => c.ProductFor.ProductID==productID && c.ManufacturerFor.ManufacturerID==manufacturerID).List<ProductManufacturer>();
-                    if (pm.Count > 0)
+                    if (pm.Count() > 0)
                     {
                         return true;
                     }
@@ -240,7 +254,26 @@ namespace MvcApplication.Models
             }
             return cateID;
         }
+        // check exist productManufacturer
+        public static bool checkExistProductCategory(int productID, int cateID)
+        {
+            using (ISession session = sessfac.OpenSession())
+            {
+                using (ITransaction Transaction = session.BeginTransaction())
+                {
+                    var pm = session.QueryOver<ProductCategory>().Where(c => c.Product.ProductID == productID && c.Category.CategoryID == cateID).List<ProductCategory>();
+                    if (pm.Count() > 0)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
 
+            }
+        }
         // Insert productCategory
         public static void insertProductCategory(int productID, int cateID)
         {
@@ -286,7 +319,7 @@ namespace MvcApplication.Models
             using (var session = sessfac.OpenSession())
             {
                 //Deleted=0 and Published=1 and ProductID=168420 and IsDefault=1
-                var pvlist = session.QueryOver<ProductVariant>().Where(c => c.Deleted == 0 && c.ProductID == ProductID && c.Published == 1 && c.IsDefault == 1).List();
+                var pvlist = session.QueryOver<ProductVariant>().Where(c => c.Deleted == 0 && c.ProductID == ProductID && c.IsDefault == 1).List();//&& c.Published == 1
                 if (pvlist.Count() > 0)
                 {
                     num = pvlist.Count();
@@ -296,35 +329,35 @@ namespace MvcApplication.Models
         }
 
         // insert product variant
-        public static int insertProductVariant(ProductVariant pv)
+        public static int insertProductVariant(int productId,string name,string sku,float price,string Description,float weight,float msrp,int isdefault,string mmysubmodel)
         {
             int variantID = 0;
             using (var session = sessfac.OpenSession())
             {
                 using (var tran = session.BeginTransaction())
                 {
-                    //ProductVariant pv = new ProductVariant();
-                    //pv.VariantGUID = Guid.NewGuid();
-                    //pv.Name = "Front Right Axle1";
-                    //pv.ProductID = 168420;
-                    //pv.SKUSuffix = "EOE.65030";
-                    //pv.Inventory = 0;
-                    //pv.Price = (float)31.98;
-                    //pv.SalePrice = null;
-                    //pv.ManufacturerPartNumber = "";
-                    //pv.Description = "Single Rotor";
-                    //pv.Weight = (float)11.75;
-                    //pv.MSRP = (float)36.99;
-                    //pv.Cost = 0;
-                    //pv.Dimensions = "";
-                    //pv.Inventory = 0;
-                    //pv.MMYSubmodel = "AWD";
-                    //pv.Colors ="";
-                    //pv.ColorSKUModifiers="";
-                    //pv.Sizes="";
-                    //pv.SizeSKUModifiers="";
-                    //pv.CreatedOn = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                    //return DB.insertProductVariant(pv);
+                    ProductVariant pv = new ProductVariant();
+                    pv.VariantGUID = Guid.NewGuid();
+                    pv.Name = name;
+                    pv.ProductID = productId;
+                    pv.SKUSuffix = sku;
+                    pv.Inventory = 0;
+                    pv.Price = price;
+                    pv.SalePrice = null;
+                    pv.ManufacturerPartNumber = "";
+                    pv.Description = Description;
+                    pv.Weight = weight;
+                    pv.MSRP = msrp;
+                    pv.Cost = 0;
+                    pv.Dimensions = "";
+                    pv.Inventory = 0;
+                    pv.MMYSubmodel =mmysubmodel;
+                    pv.Colors = "";
+                    pv.ColorSKUModifiers = "";
+                    pv.Sizes = "";
+                    pv.IsDefault = isdefault;
+                    pv.SizeSKUModifiers = "";
+                    pv.CreatedOn = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                     session.Save(pv);
                     tran.Commit();
                     variantID = (Int32)pv.VariantID;
@@ -401,6 +434,118 @@ namespace MvcApplication.Models
                 }
             }
             return mmy;
+        }
+
+        public void ImportData()
+        {
+                int n = 0;
+                while(n<1)
+                {
+                    using (var session = sessfac.OpenSession())
+                    {
+                        var a = session.CreateCriteria<AllRowImport>().List<AllRowImport>().Where(ar => ar.status == 0).Take(1000).ToList();
+                        if (a.Count() > 0)
+                        {
+                            executeImport(a);
+                            n = 0;
+                        }
+                        else
+                        {
+                            n = 2;
+                        }
+                    }
+                }
+        }
+
+        public void executeImport(List<AllRowImport> rowimport)
+        {
+            int rownum = 0;
+            foreach (var a in rowimport)
+            {
+                try
+                {
+                    rownum = a.RowNum;
+                    int productID = Product(a.ProductName, a.Manufacturer, a.Description, a.XmlPackage, a.MiscText, a.ManufacturerPartNumber);
+                    Category(productID, a.Category1);
+                    int pviD = ProductVariant(productID, a.VariantName, a.Price, a.Description1, a.Weight, a.MSRP, a.Make, a.Model, a.Year, a.SubModel, a.SKUSuffix);
+                    DB.updateStatusAllRowImport(rownum, 1);
+                }
+                catch (Exception e)
+                {
+                    DB.updateStatusAllRowImport(rownum,2);
+                }
+            }
+        }
+        // method check import data
+        //product manufacturer
+        public int Product(string Name,string manufacturerName ,string Description, string XmlPackage,
+                                       string MiscText, string ManufacturerPartNumber)
+        {
+            int proID=DB.checkExistProduct(Name,manufacturerName);
+            if (proID == 0)
+            {
+                proID = DB.insertNewProduct(Name,Description,XmlPackage,MiscText,ManufacturerPartNumber);
+            }
+            int mid = DB.checkExistManufacturer(manufacturerName);
+            if (mid == 0)
+            {
+                mid = DB.insertManufacturer(manufacturerName);
+            }
+            if (DB.checkExistProductManufurer(proID, mid) == false)
+            {
+                DB.insertProductManufacturer(proID, mid);
+            }
+            return proID;
+        }
+        // category
+        public void Category(int productID,string cateName)
+        {
+            int cateid=DB.checkExistCategory(cateName);
+            if (cateid == 0)
+            {
+                cateid = DB.insertCategory(cateName);
+            }
+            if (DB.checkExistProductCategory(productID, cateid) == false)
+            {
+                DB.insertProductCategory(productID, cateid);
+            }
+        }
+        // product variant
+        public int ProductVariant(int productId,string name,float price,string description,float weight,float msrp,
+                                 string make,string model,float year,string mmysubmodel,string sku)
+        {
+            int pvId = 0;
+            try
+            {
+                //int productId,string name,string sku,float price,string Description,float weight,float msrp,string mmysubmodel
+                string submodelformat=(mmysubmodel==null)?ReplaceFomat(mmysubmodel):"";
+                pvId = DB.checkExistProductVariant(productId, submodelformat.Trim(), sku);
+                if (pvId == 0)
+                {
+                    int isdefault = 0;
+                    if (countProductVariantDefualtby1(productId) == 0)
+                    {
+                        isdefault = 1;
+                    }
+                    pvId = DB.insertProductVariant(productId, name, sku, price, description, weight, msrp, isdefault, submodelformat.Trim());
+                }
+                int mmyid = checkCompunix_makemodelyear(make, model, year.ToString());
+                if (mmyid == 0)
+                {
+                    mmyid = DB.insertCompunix_makemodelyear(make, model, year.ToString());
+                }
+                int pvmmy = checkCompunix_ProductMMY(mmyid, productId, pvId);
+                if (pvmmy == 0)
+                {
+                    DB.insertCompunix_ProductMMY(mmyid, productId, pvId);
+                }
+                return pvId;
+            }
+            catch (Exception e)
+            {
+                string er = e.Message;
+            }
+            return pvId;
         }
 
         public static string ReplaceFomat(String str)
