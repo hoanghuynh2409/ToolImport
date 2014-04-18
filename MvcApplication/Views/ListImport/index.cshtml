@@ -170,7 +170,7 @@
             };
         });
  
-        app.controller('IndexCtrl', function ($scope, personFactory, notificationFactory) {
+        app.controller('IndexCtrl', function ($scope, personFactory, notificationFactory, $location, $window) {
             $scope.people = [];
             $scope.addMode = false;
             //order by
@@ -179,6 +179,10 @@
                 var asc = $scope.orderBy.field === field ? !$scope.orderBy.asc : true;
                 $scope.orderBy = { field: field, asc: asc };
             }
+            // redirect
+            $scope.go = function (path) {
+                $location.path(path);
+            };
             //
             $scope.toggleAddMode = function () {
                 $scope.addMode = !$scope.addMode;
@@ -225,7 +229,10 @@
             };
             $scope.importdata = function (url) {
                 personFactory.importdata(url).success(successCallback).error(errorCallback);
-            };
+               // $location.path("/Home");
+                $window.location.replace("/Home");
+                $window.location.reload();
+            }
             //paging
             $scope.groupToPages = function () {
                 $scope.pagedItems = [];

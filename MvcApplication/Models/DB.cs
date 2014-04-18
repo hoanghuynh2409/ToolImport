@@ -110,7 +110,11 @@ namespace MvcApplication.Models
                     p.Published = 1;
                     p.Deleted = 0;
                     p.XmlPackage = XmlPackage;
-                    p.SEName = Name.Replace(" ", "-").ToLower(); ;
+                    p.SEAltText = Name;
+                    p.Published = 1;
+                    p.ColWidth = 4;
+                    p.SalesPromptID = 1;
+                    p.SEName = Name.Replace(" ", "-").ToLower();
                     p.MiscText = MiscText;
                     p.ExtensionData = "";
                     p.ManufacturerPartNumber = ManufacturerPartNumber;
@@ -151,9 +155,11 @@ namespace MvcApplication.Models
                     Manufacturer m = new Manufacturer();
                     m.ManufacturerGUID = Guid.NewGuid();
                     m.Name = manufacturerName;
-                    m.SEName = manufacturerName.ToLower();
+                    m.SEName = manufacturerName.Replace(" ", "-").ToLower();
+                    m.SEAltText = manufacturerName;
+                    m.Country = "United States";
                     m.SortByLooks = 0;
-                    m.XmlPackage = "entity.MMYGrid.xml.config";
+                    m.XmlPackage = "entity.mmygrid.xml.config";
                     m.ColWidth = 4;
                     m.DisplayOrder = 1;
                     m.Published = 1;
@@ -357,6 +363,9 @@ namespace MvcApplication.Models
                     pv.Sizes = "";
                     pv.IsDefault = isdefault;
                     pv.SizeSKUModifiers = "";
+                    pv.Published = 1;
+                    pv.DisplayOrder = 1;
+                    pv.Deleted = 0;
                     pv.CreatedOn = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                     session.Save(pv);
                     tran.Commit();
