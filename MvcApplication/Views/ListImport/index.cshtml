@@ -229,9 +229,7 @@
             };
             $scope.importdata = function (url) {
                 personFactory.importdata(url).success(successCallback).error(errorCallback);
-               // $location.path("/Home");
-                $window.location.replace("/Home");
-                $window.location.reload();
+                $window.location.replace("/Status");
             }
             //paging
             $scope.groupToPages = function () {

@@ -42,6 +42,21 @@ namespace MvcApplication.Models
 
             }
         }
+        //get status process import
+        public static IEnumerable<int> getStatusProcessImport()
+        {
+            using (var session = sessfac.OpenSession())
+            {
+                var yetinsert = session.CreateCriteria<AllRowImport>().List<AllRowImport>().Where(ar => ar.status == 0).ToList().Count();
+                var insertsucess = session.CreateCriteria<AllRowImport>().List<AllRowImport>().Where(ar => ar.status == 1).ToList().Count();
+                var inserterror = session.CreateCriteria<AllRowImport>().List<AllRowImport>().Where(ar => ar.status == 2).ToList().Count();
+                int[] l = new int[3];
+                l[0] = yetinsert;
+                l[1] = insertsucess;
+                l[2] = inserterror;
+                return l;
+            }
+        }
         //Update 
         public static void updateAItemOfAllRowImport(int id,AllRowImport ari)
         {

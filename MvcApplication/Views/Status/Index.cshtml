@@ -1,0 +1,74 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+    @Scripts.Render("~/bundles/angular")
+    @Scripts.Render("~/bundles/toastr")
+@*    @Scripts.Render("~/bundles/bootstrap")
+    @Styles.Render("~/content/bootstrap")*@
+    @Styles.Render("~/content/toastr")
+<h2>Process Import</h2>
+<div ng-app="process">
+    <div ng-controller="processCtrl">
+        @*<p>{{item}}{{timer}}</p>*@
+        <ul class="example-animate-container">
+            <li>
+               wait import: {{items[0]}}
+            </li>
+            <li>
+               Imported: {{items[1]}}
+            </li>
+            <li>
+               Error: {{items[2]}}
+            </li>
+        </ul>
+    </div>
+</div>
+ <script>
+     //angular.module('process', []).controller('processCtrl', function ($scope) {
+     //    $scope.item = 'Squidward';
+     //});
+
+     var myApp = angular.module('process', []);
+
+     myApp.service('dataService', function ($http) {
+         delete $http.defaults.headers.common['X-Requested-With'];
+         this.getData = function (callbackFunc) {
+             $http({
+                 method: 'GET',
+                 url: 'api/process',
+             //    params: 'limit=10, sort_by=created:desc',
+                 headers: { 'Authorization': 'Token token=xxxxYYYYZzzz' }
+             }).success(function (data) {
+                 // With the data succesfully returned, call our callback
+                 callbackFunc(data);
+             }).error(function () {
+                 alert("error");
+             });
+         }
+     });
+
+     myApp.controller('processCtrl', function ($scope, dataService) {
+         $scope.timer = 20;
+         //$scope.count10 = function () {
+             setInterval(function () {
+                 if (20 > $scope.timer) {
+                     $scope.timer++;
+                 } else {
+                     $scope.timer = 1;
+                     $scope.data = null;
+                     dataService.getData(function (dataResponse) {
+                         $scope.items = dataResponse;
+                     });
+                 }
+                 // Use $apply() to update the result outside AngularJS
+                 $scope.$apply();
+             }, 1000);
+         //};
+
+         //$scope.data = null;
+         //dataService.getData(function (dataResponse) {
+         //    $scope.item = dataResponse;
+         //});
+     });
+</script>

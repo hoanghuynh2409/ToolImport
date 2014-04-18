@@ -14,7 +14,7 @@ namespace MvcApplication.Controllers
         // GET api/importdata
         public IEnumerable<string> Get()
         {
-           // db.ImportData();
+            db.ImportData();
             return new string[] { "value1", "value2" };
         }
 

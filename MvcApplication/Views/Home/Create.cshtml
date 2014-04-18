@@ -99,6 +99,14 @@
     });
 
 </script>
+<header>
+        <div class="content-wrapper">
+            <div class="float-left">
+                <p class="site-title">
+                    <a href="~/">Upload File</a></p>
+            </div>
+        </div>
+</header>
 <div id="formupload">
     @using (Html.BeginForm("Create", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
     { 
